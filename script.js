@@ -1,3 +1,5 @@
+// è¨ˆç®—ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯Ackvyã•ã‚“ã®https://ack61.github.io/mathpower2022-31game/ã‹ã‚‰å€Ÿç”¨
+
 const result_table = {};
 
 function updateButton(S, length) {
@@ -115,7 +117,7 @@ function calcPeriod(S) {
           // tr = document.createElement('tr');
           max_start_period = old;
           period = i - old;
-          // tr.textContent = "üŠú: " + (i - old);
+          // tr.textContent = "å‘¨æœŸ: " + (i - old);
           // result_table.appendChild(tr);
           break;
         }
@@ -169,7 +171,7 @@ function calcPeriod(S) {
   //    console.log(right);
       if(isOk){
         right = mid;
-  //      console.log("‚¤‚¨‚¨");
+  //      console.log("ã†ãŠãŠ");
       }else{
         left = mid + 1;
       }
@@ -276,7 +278,7 @@ function add(index, num) {
   let l3 = document.createElement('td');
   l1.textContent = index;
   l2.textContent = num;
-  l3.textContent = `${"œ".repeat(num)}`;
+  l3.textContent = `${"â—".repeat(num)}`;
   tr.appendChild(l1);
   tr.appendChild(l2);
   tr.appendChild(l3);
