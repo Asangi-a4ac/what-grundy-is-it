@@ -1,0 +1,30 @@
+h1 {
+  text-align: center;
+}
+
+#subtraction-set {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.zero-value {
+  font-size: 60%;
+  color: #CCCCCC;
+  margin: 20px 0;
+}
+
+#summary {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.label {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.sequence {
+  // text-align: center;
+  overflow-wrap: anywhere;
+}
