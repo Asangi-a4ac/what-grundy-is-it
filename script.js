@@ -1,6 +1,7 @@
 // 計算プログラムはAckvyさんのhttps://ack61.github.io/mathpower2022-31game/から借用
 
 const result_table = {};
+const colors = ['#FFFFFF', '#FFF0F0', '#FFF8F0', '#FFFFF0', '#F0FFF0', '#F0FFFF', '#F0F0FF', '#F8F0FF', '#FFF0FF', '#F8F8F8']
 
 function updateButton(S, length) {
   // console.log(S);
@@ -36,8 +37,8 @@ function preCalcPeriod() {
   setTimeout(calcPeriod, 1);
 }
 
-function calcPeriod(S) {
-  // console.log(S);
+function calcPeriod(T) {
+  S = T.slice().sort();
   if (S.length == 0) {
     return {
       period: undefined,
@@ -293,10 +294,13 @@ function updateSet() {
   const hours = currentDate.getHours();
   const minutes = currentDate.getMinutes();
   const seconds = currentDate.getSeconds();
-  // const sec = (currentDate - start) / 1000 * 120;
-  // const hours = 0;
-  // const minutes = 0;
-  // const seconds = 0;
+  // const hours = 2;
+  // const minutes = 5;
+  // const seconds = Math.floor((currentDate.getSeconds() + currentDate.getMilliseconds() / 1000) * 4) % 30;
+  // const hours = 8;
+  // const minutes = 27;
+  // const seconds = 1;
+
   $('#element1').text(hours);
   $('#element2').text(',' + minutes);
   $('#element3').text(',' + seconds);
@@ -308,6 +312,18 @@ function updateSet() {
     }
   });
   updateInfo();
+}
+
+function gcd(a, b) {
+  if (b == 0) {
+    return a;
+  }
+
+  return gcd(b, a % b);
+}
+
+function uniq(array) {
+  return array.filter((elem, index, self) => self.indexOf(elem) === index);
 }
 
 function updateInfo() {
@@ -326,13 +342,15 @@ function updateInfo() {
   console.log(summary);
   $('#summary').text(summary);
 
+  type = 0;
+
   if (grundySet.length == 0) {
     $('#pre-period').text('none');
     $('#period').text('none');
   } else {
     const sequence = updateButton(grundySet, periodSummary.prePeriod + periodSummary.period);
-    const prePeriod = sequence.slice(0, periodSummary.prePeriod)
-    const period = sequence.slice(periodSummary.prePeriod)
+    const prePeriod = sequence.slice(0, periodSummary.prePeriod);
+    const period = sequence.slice(periodSummary.prePeriod);
     console.log(sequence);
     const prePeriodText = prePeriod.join(',');
     if (prePeriodText === '') {
@@ -341,6 +359,40 @@ function updateInfo() {
       $('#pre-period').text(prePeriod.join(','));
     }
     $('#period').text(period.join(','));
+
+    if (uniq(grundySet).length == 3) {
+      grundySet.sort((a, b) => { return a - b; });
+      const a = grundySet[0];
+      const b = grundySet[1];
+      const c = grundySet[2];
+      const j = (b - a) % (2 * a);
+      const p = period.length;
+      if (c == a + b && p == b + c - j) {
+        type = 1;
+      } else if (c == a + b && p == a*(b+c+j-2*a)/gcd(a,2*a-j)) {
+        type = 2;
+      } else if (p == gcd(a+b, gcd(b+c, c+a))) {
+        type = 3;
+      } else if (p == gcd(a+b, b+c)) {
+        type = 4;
+      } else if (p == gcd(a+b, c+a)) {
+        type = 5;
+      } else if (p == gcd(b+c, c+a)) {
+        type = 6;
+      } else if (p == a+b) {
+        type = 7;
+      } else if (p == b+c) {
+        type = 8;
+      } else if (p == c+a) {
+        type = 9;
+      }
+    }
+    if (type > 0) {
+      $('#type').text('分類番号' + type);
+    } else {
+      $('#type').text('分類番号なし: 2要素以下');
+    }
+    $('body').css('background-color', colors[type]);
   }
 }
 
