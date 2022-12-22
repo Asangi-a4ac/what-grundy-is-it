@@ -38,7 +38,8 @@ function preCalcPeriod() {
 }
 
 function calcPeriod(T) {
-  S = T.slice().sort();
+  S = T.slice().sort((a, b) => a - b);
+  console.log(["hello", S]);
   if (S.length == 0) {
     return {
       period: undefined,
@@ -298,8 +299,8 @@ function updateSet() {
   // const minutes = 5;
   // const seconds = Math.floor((currentDate.getSeconds() + currentDate.getMilliseconds() / 1000) * 4) % 30;
   // const hours = 8;
-  // const minutes = 27;
-  // const seconds = 1;
+  // const minutes = 42;
+  // const seconds = 40;
 
   $('#element1').text(hours);
   $('#element2').text(',' + minutes);
